@@ -7,9 +7,9 @@ const ListaParticipantes = () => {
     return(
         <ul>
             {
-                participantes.map((participante) => {
+                participantes.map((participante) => (
                     <li key={participante}>{participante}</li>
-                })
+                ))
             }
 
         </ul>

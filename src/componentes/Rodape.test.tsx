@@ -1,3 +1,4 @@
+import React from "react";
 import { RecoilRoot } from "recoil";
 import Rodape from './Rodape'
 import { fireEvent, render, screen } from "@testing-library/react";
@@ -13,7 +14,15 @@ const mockNavegacao = jest.fn()
 
 jest.mock('react-router-dom', () => {
     return {
-        useNavigate: mockNavegacao
+        useNavigate: () => mockNavegacao
+    }
+})
+
+const mockSorteio = jest.fn()
+
+jest.mock('../state/hook/useSorteador', () => {
+    return {
+        useSorteador: () => mockSorteio
     }
 })
 
@@ -46,5 +55,7 @@ describe('quando existe participantes suficientes', () => {
         fireEvent.click(botao)
 
         expect(mockNavegacao).toHaveBeenCalledTimes(1);
+        expect(mockNavegacao).toBeCalledWith('/sorteio');
+        expect(mockSorteio).toHaveBeenCalledTimes(1);
     })
  })
